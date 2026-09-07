@@ -9,9 +9,12 @@
   --faint:  #9A9A9A;
   --hair:   #E4E4E4;
 
-  --serif: Spectral, Georgia, "Times New Roman", serif;
-  --sans:  Archivo, "Helvetica Neue", Arial, sans-serif;
-  --mono:  "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Un solo carattere per tutto il sito, sopra e sotto.
+     Per rimettere un serif nel testo lungo, basta cambiare --serif. */
+  --font:  Archivo, "Helvetica Neue", Arial, sans-serif;
+  --serif: var(--font);
+  --sans:  var(--font);
+  --mono:  var(--font);
 
   --measure: 68ch;
 }
@@ -34,8 +37,8 @@ body{
   background:var(--paper);
   color:var(--ink);
   font-family:var(--serif);
-  font-size:17px;
-  line-height:1.7;
+  font-size:16.5px;
+  line-height:1.65;
   font-weight:400;
   -webkit-font-smoothing:antialiased;
 }
@@ -89,26 +92,28 @@ main{ padding:110px 0 0; }
 
 /* ---------- type ---------- */
 h1{
-  font-family:var(--serif); font-weight:400;
-  font-size:1.9rem; line-height:1.25; letter-spacing:-.01em;
+  font-family:var(--font); font-weight:500;
+  font-size:1.8rem; line-height:1.22; letter-spacing:-.02em;
   margin:0 0 34px; text-wrap:balance; max-width:24ch;
 }
-h1.big{ font-size:clamp(2.4rem, 4.4vw, 3.4rem); max-width:11ch; line-height:1.08; }
+h1.big{ font-size:clamp(2.2rem, 4vw, 3.1rem); max-width:11ch; line-height:1.06; letter-spacing:-.03em; }
 h2{
   font-family:var(--sans); font-weight:600; font-size:11px;
   letter-spacing:.18em; text-transform:uppercase; color:var(--faint);
   margin:0 0 18px;
 }
 h3{
-  font-family:var(--serif); font-weight:500; font-size:1.02rem;
-  line-height:1.4; margin:0 0 6px;
+  font-family:var(--font); font-weight:600; font-size:.97rem;
+  line-height:1.45; letter-spacing:-.005em; margin:0 0 6px;
 }
 p{ margin:0 0 1.3em; }
 p:last-child{ margin-bottom:0; }
 .small{ font-size:14.5px; color:var(--muted); }
-.mono{ font-family:var(--mono); font-size:12.5px; letter-spacing:-.01em; }
+.mono{ font-family:var(--mono); font-size:13px; }
 
 section{ margin:0 0 92px; }
+/* aria fra il blocco d'apertura e la prima sezione */
+main .wrap > .col:first-child + section{ margin-top:84px; }
 section:last-of-type{ margin-bottom:0; }
 hr{ border:none; border-top:1px solid var(--hair); margin:0 0 40px; }
 
@@ -118,7 +123,7 @@ ul.plain > li{ padding:0 0 26px; }
 ul.plain > li:last-child{ padding-bottom:0; }
 
 .row{ display:grid; grid-template-columns:5.5em 1fr; gap:0 22px; align-items:baseline; }
-.row .yr{ font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+.row .yr{ font-family:var(--font); font-size:13px; color:var(--faint); }
 @media (max-width:640px){
   .row{ grid-template-columns:1fr; }
   .row .yr{ margin-bottom:2px; display:block; }
@@ -169,7 +174,7 @@ ol.refs{ margin:0; padding:0; list-style:none; counter-reset:r; font-size:14px; 
 ol.refs li{ counter-increment:r; position:relative; padding:0 0 12px 3em; line-height:1.6; }
 ol.refs li::before{
   content:"[" counter(r) "]"; position:absolute; left:0; top:0;
-  font-family:var(--mono); font-size:11.5px; color:var(--faint);
+  font-family:var(--font); font-size:12px; color:var(--faint);
 }
 .kw{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px 18px;
      font-family:var(--sans); font-size:12.5px; color:var(--muted); }
@@ -178,3 +183,30 @@ ol.refs li::before{
 footer{ margin:120px 0 0; padding:22px 0 56px; border-top:1px solid var(--hair); }
 footer .wrap{ display:flex; flex-wrap:wrap; gap:6px 28px; }
 footer, footer a{ font-family:var(--sans); font-size:12px; color:var(--faint); }
+
+/* ---------- immagini ---------- */
+figure{ margin:0; }
+figure img{ display:block; width:100%; height:auto; }
+figcaption{
+  font-family:var(--font); font-size:12px; color:var(--faint);
+  margin-top:10px; line-height:1.5;
+}
+
+/* ritratto nella pagina About: colonna di sinistra, sotto il titolo */
+.portrait{ margin:34px 0 0; max-width:420px; }
+@media (min-width:980px){
+  main .wrap > .col:first-child:not(.paper) > .portrait{
+    grid-column:1; grid-row:2; margin:38px 0 0;
+  }
+  /* il testo occupa la colonna destra per intero, accanto a titolo e foto */
+  main .wrap > .col:first-child:not(.paper) > .lede{
+    grid-column:2; grid-row:1 / span 2;
+  }
+}
+
+/* foto affiancata a un elenco: usata nella Discography */
+.media-split{ display:grid; grid-template-columns:1fr; gap:44px 60px; align-items:start; }
+@media (min-width:980px){
+  .media-split{ grid-template-columns:minmax(0,400px) minmax(0,1fr); }
+}
+.media-split figure{ max-width:480px; }
