@@ -13,17 +13,17 @@
   --sans:  Archivo, "Helvetica Neue", Arial, sans-serif;
   --mono:  "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --measure: 62ch;
+  --measure: 68ch;
 }
-@media (prefers-color-scheme: dark){
-  :root{
-    --paper: #0B0B0B;
-    --ink:   #ECECEC;
-    --muted: #9A9A9A;
-    --faint: #6E6E6E;
-    --hair:  #262626;
-  }
-}
+/* Il sito è chiaro sempre, anche per chi ha il sistema in modalità scura.
+   Per riattivare il tema scuro automatico, incolla questo blocco qui sotto:
+
+   @media (prefers-color-scheme: dark){
+     :root{ --paper:#0B0B0B; --ink:#ECECEC; --muted:#9A9A9A;
+            --faint:#6E6E6E; --hair:#262626; }
+   }
+*/
+:root{ color-scheme: light; }
 
 *,*::before,*::after{ box-sizing:border-box; }
 html{ -webkit-text-size-adjust:100%; }
@@ -34,7 +34,7 @@ body{
   background:var(--paper);
   color:var(--ink);
   font-family:var(--serif);
-  font-size:16px;
+  font-size:17px;
   line-height:1.7;
   font-weight:400;
   -webkit-font-smoothing:antialiased;
@@ -49,8 +49,25 @@ a:hover{ text-decoration-thickness:1.5px; }
 .skip:focus{ left:12px; top:12px; background:var(--paper); padding:8px 12px; border:1px solid var(--hair); z-index:10; }
 
 /* ---------- frame ---------- */
-.wrap{ max-width:1080px; margin:0 auto; padding:0 32px; }
+.wrap{ max-width:1400px; margin:0 auto; padding:0 60px; }
 .col{ max-width:var(--measure); }
+
+/* Su schermo largo le sezioni diventano due colonne: etichetta a sinistra,
+   contenuto a destra. Sotto i 980px tornano incolonnate. */
+@media (min-width:980px){
+  section{ display:grid; grid-template-columns:210px minmax(0,1fr); gap:0 60px; }
+  section > h2{ grid-column:1; grid-row:1; margin:0; padding-top:5px; }
+  section > *:not(h2){ grid-column:2; }
+
+  /* Stessa cosa per il blocco d'apertura di ogni pagina: titolo a sinistra,
+     testo introduttivo a destra. */
+  main .wrap > .col:first-child:not(.paper){
+    display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:0 60px; max-width:none; align-items:start;
+  }
+  main .wrap > .col:first-child:not(.paper) > h1{ grid-column:1; grid-row:1; margin:0; max-width:14ch; }
+  main .wrap > .col:first-child:not(.paper) > *:not(h1){ grid-column:2; }
+}
 
 .bar{ padding:26px 0 0; }
 .bar .wrap{ display:flex; align-items:baseline; gap:24px 32px; flex-wrap:wrap; }
@@ -67,8 +84,8 @@ a:hover{ text-decoration-thickness:1.5px; }
 .bar nav a:hover{ color:var(--ink); text-decoration:underline; text-underline-offset:4px; }
 .bar nav a[aria-current="page"]{ color:var(--ink); }
 
-main{ padding:96px 0 0; }
-@media (max-width:640px){ main{ padding:56px 0 0; } }
+main{ padding:110px 0 0; }
+@media (max-width:640px){ main{ padding:56px 0 0; } .wrap{ padding:0 24px; } }
 
 /* ---------- type ---------- */
 h1{
@@ -76,7 +93,7 @@ h1{
   font-size:1.9rem; line-height:1.25; letter-spacing:-.01em;
   margin:0 0 34px; text-wrap:balance; max-width:24ch;
 }
-h1.big{ font-size:2.4rem; max-width:16ch; }
+h1.big{ font-size:clamp(2.4rem, 4.4vw, 3.4rem); max-width:11ch; line-height:1.08; }
 h2{
   font-family:var(--sans); font-weight:600; font-size:11px;
   letter-spacing:.18em; text-transform:uppercase; color:var(--faint);
@@ -91,7 +108,7 @@ p:last-child{ margin-bottom:0; }
 .small{ font-size:14.5px; color:var(--muted); }
 .mono{ font-family:var(--mono); font-size:12.5px; letter-spacing:-.01em; }
 
-section{ margin:0 0 86px; }
+section{ margin:0 0 92px; }
 section:last-of-type{ margin-bottom:0; }
 hr{ border:none; border-top:1px solid var(--hair); margin:0 0 40px; }
 
@@ -137,9 +154,12 @@ dl.facts dd a{ color:var(--ink); }
 .copy-btn:hover{ color:var(--ink); }
 
 /* ---------- paper page ---------- */
+.paper{ max-width:none; }
 .paper h1{
-  font-size:1.75rem; font-weight:400; line-height:1.28; max-width:34ch; margin:0 0 20px;
+  font-size:clamp(1.7rem, 2.6vw, 2.3rem); font-weight:400; line-height:1.22;
+  max-width:26ch; margin:0 0 22px;
 }
+.paper > *:not(h1){ max-width:var(--measure); }
 .byline{ font-family:var(--sans); font-size:14px; font-weight:600; margin:0 0 2px; }
 .affil{ font-family:var(--sans); font-size:13px; color:var(--muted); margin:0 0 26px; }
 .cite{ color:var(--muted); font-size:14.5px; margin:0 0 26px; max-width:58ch; }
