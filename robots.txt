@@ -1,0 +1,5 @@
+# Tutti i motori di ricerca possono leggere tutto il sito.
+User-agent: *
+Allow: /
+
+Sitemap: https://ludovicofranco.github.io/sitemap.xml
