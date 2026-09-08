@@ -220,6 +220,12 @@ figcaption{
   }
 }
 
+/* Sotto i 900px la colonna d'apertura si impila e la foto finisce sopra il
+   testo: serve la stessa aria che la Discography ottiene dal suo gap. */
+@media (max-width:899px){
+  .side-figure + .lede{ margin-top:44px; }
+}
+
 /* foto affiancata a un elenco: usata nella Discography */
 .media-split{ display:grid; grid-template-columns:1fr; gap:44px 60px; align-items:start; }
 @media (min-width:900px){
