@@ -194,28 +194,29 @@ figcaption{
   margin-top:10px; line-height:1.5;
 }
 
-/* foto a tutta larghezza dentro una pagina di testo (usata nella Research) */
-.figure-block{ margin:72px 0 0; max-width:760px; }
-
-/* ritratto nella pagina About: colonna di sinistra, sotto il titolo */
-.portrait{ margin:30px 0 0; max-width:340px; }
+/* foto nella colonna di sinistra, sotto il titolo: About e Research */
+.side-figure{ margin:30px 0 0; max-width:340px; }
 @media (min-width:900px){
-  main .wrap > .col:first-child:not(.paper) > .portrait{
+  main .wrap > .col:first-child:not(.paper) > .side-figure{
     grid-column:1; grid-row:2; margin:38px 0 0;
   }
-  /* Pagina About: titolo in alto su tutta la larghezza, poi foto a sinistra
+  /* Titolo in alto su tutta la larghezza, poi foto a sinistra
      e testo a destra, allineati in cima. */
-  main .wrap > .col:first-child:not(.paper).with-portrait{
+  main .wrap > .col:first-child:not(.paper).with-side-figure{
     grid-template-columns:minmax(0,340px) minmax(0,1fr);
   }
-  main .wrap > .col:first-child:not(.paper).with-portrait > h1{
+  main .wrap > .col:first-child:not(.paper).with-side-figure > h1{
     grid-column:1 / -1; grid-row:1; max-width:none;
   }
-  main .wrap > .col:first-child:not(.paper).with-portrait > .portrait{
+  main .wrap > .col:first-child:not(.paper).with-side-figure > .side-figure{
     grid-column:1; grid-row:2; margin:30px 0 0; max-width:none;
   }
-  main .wrap > .col:first-child:not(.paper).with-portrait > .lede{
+  main .wrap > .col:first-child:not(.paper).with-side-figure > .lede{
     grid-column:2; grid-row:2; margin:30px 0 0; max-width:var(--measure);
+  }
+  /* Variante per una foto orizzontale (Research): colonna sinistra piu' larga. */
+  main .wrap > .col:first-child:not(.paper).with-side-figure.wide-figure{
+    grid-template-columns:minmax(0,440px) minmax(0,1fr);
   }
 }
 
